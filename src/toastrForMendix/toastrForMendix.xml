@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="toastrForMendix.widget.toastrForMendix" needsEntityContext="true" xmlns="http://www.mendix.com/widget/1.0/">
+    <name>toastrForMendix</name>
+    <description>The description of this widget.</description>
+
+    <icon />
+
+    <properties>
+        <property key="notificationEntity" type="entity" allowNonPersistableEntities="true" required="true">
+            <caption>Notification Entity</caption>
+            <category>Source</category>
+            <description>Select the entity that represents a notification</description> 
+        </property>
+        <property key="loadMicroflow" type="microflow" required="true">
+            <caption>Notification Load</caption>
+            <category>Source</category>
+            <description>Microflow that will load the notifications</description>
+            <returnType type="Object" isList="true" entityProperty="notificationEntity"/>
+        </property>
+        <property key="typeAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Type</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls the type of notification (success | info | warning | error)</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="titleAttribute" type="attribute" required="true" entityProperty="notificationEntity">
+            <caption>Title</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute containing the notification title</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="messageAttribute" type="attribute" required="true" entityProperty="notificationEntity">
+            <caption>Message</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute containing the notification message</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="showCloseAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Close Button</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls if a close button should be shown</description>
+            <attributeTypes>
+                <attributeType name="Boolean"/>
+            </attributeTypes>
+        </property>
+        <property key="showProgressAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Progress Bar</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls if a progress bar should be shown</description>
+            <attributeTypes>
+                <attributeType name="Boolean"/>
+            </attributeTypes>
+        </property>
+        <property key="tapToDismissAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Tap To Dismiss</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls if the notification should close when the user clicks it</description>
+            <attributeTypes>
+                <attributeType name="Boolean"/>
+            </attributeTypes>
+        </property>
+        <property key="positionClassAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Position Class</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls the position of the notification (toast-top-right | toast-bottom-right | toast-bottom-left | toast-top-left | toast-top-full-width | toast-bottom-full-width | toast-top-center | toast-bottom-center)</description>
+            <attributeTypes>
+                <attributeType name="String"/>
+            </attributeTypes>
+        </property>
+        <property key="showDurationAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Show Duration</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls the show duration, in milliseconds</description>
+            <attributeTypes>
+                <attributeType name="Integer"/>
+            </attributeTypes>
+        </property>
+        <property key="hideDurationAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Hide Duration</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls the hide duration, in milliseconds</description>
+            <attributeTypes>
+                <attributeType name="Integer"/>
+            </attributeTypes>
+        </property>
+        <property key="timeoutAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Timeout</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls the initial timeout, in milliseconds</description>
+            <attributeTypes>
+                <attributeType name="Integer"/>
+            </attributeTypes>
+        </property>
+        <property key="extendedTimeoutAttribute" type="attribute" required="false" entityProperty="notificationEntity">
+            <caption>Extended Timeout</caption>
+            <category>Entity Based Configuration</category>
+            <description>Attribute that controls the extended timeout, in milliseconds</description>
+            <attributeTypes>
+                <attributeType name="Integer"/>
+            </attributeTypes>
+        </property>
+        <property key="showCloseDefault" type="boolean" required="true" defaultValue="true">
+            <caption>Close Button </caption>
+            <category>Default Configuration</category>
+            <description>Whether a close button should be shown</description>
+        </property>
+        <property key="showProgressDefault" type="boolean" required="true" defaultValue="true">
+            <caption>Progress Bar </caption>
+            <category>Default Configuration</category>
+            <description>Whether to show the progress bar or not</description>
+        </property>
+        <property key="tapToDismissDefault" type="boolean" required="true" defaultValue="true">
+            <caption>Tap To Dismiss </caption>
+            <category>Default Configuration</category>
+            <description>Whether the notification can be closed by tapping it.</description>
+        </property>
+        <property key="typeDefault" type="enumeration" defaultValue="success">
+            <caption>Type </caption>
+            <category>Default Configuration</category>
+            <description>Search method used for showing suggestions</description>
+            <enumerationValues>
+                <enumerationValue key="success">success</enumerationValue>
+                <enumerationValue key="info">info</enumerationValue>
+                <enumerationValue key="warning">warning</enumerationValue>
+                <enumerationValue key="error">error</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="positionClassDefault" type="enumeration" defaultValue="toast_top_right">
+            <caption>Position Class </caption>
+            <category>Default Configuration</category>
+            <description>Where the notification should be positioned</description>
+            <enumerationValues>
+                <enumerationValue key="toast_top_right">toast-top-right</enumerationValue>
+                <enumerationValue key="toast_bottom_right">toast-bottom-right</enumerationValue>
+                <enumerationValue key="toast_bottom_left">toast-bottom-left</enumerationValue>
+                <enumerationValue key="toast_top_left">toast-top-left</enumerationValue>
+                <enumerationValue key="toast_top_full_width">toast-top-full-width</enumerationValue>
+                <enumerationValue key="toast_bottom_full_width">toast-bottom-full-width</enumerationValue>
+                <enumerationValue key="toast_top_center">toast-top-center</enumerationValue>
+                <enumerationValue key="toast_bottom_center">toast-bottom-center</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="showDurationDefault" type="integer" required="true" defaultValue="0">
+            <caption>Show Duration </caption>
+            <category>Default Configuration</category>
+            <description>The show duration, in milliseconds</description>
+        </property>
+        <property key="hideDurationDefault" type="integer" required="true" defaultValue="0">
+            <caption>Hide Duration </caption>
+            <category>Default Configuration</category>
+            <description>The hide duration, in milliseconds</description>
+        </property>
+        <property key="timeoutDefault" type="integer" required="true" defaultValue="0">
+            <caption>Timeout </caption>
+            <category>Default Configuration</category>
+            <description>The initial timeout, in milliseconds</description>
+        </property>
+        <property key="extendedTimeoutDefault" type="integer" required="true" defaultValue="0">
+            <caption>Extended Timeout </caption>
+            <category>Default Configuration</category>
+            <description>The extended timeout, in milliseconds</description>
+        </property>
+        <property key="loadNotificationsAttribute" type="attribute" required="true">
+            <caption>Load Notifications</caption>
+            <category>Behaviour</category>
+            <description>Attribute that controls whether the notifications should be loaded</description>
+            <attributeTypes>
+                <attributeType name="Boolean"/>
+            </attributeTypes>
+        </property>
+        <property key="showEasing" type="enumeration" defaultValue="swing">
+            <caption>Show Easing</caption>
+            <category>Behaviour</category>
+            <description>Search method used for showing suggestions</description>
+            <enumerationValues>
+                <enumerationValue key="swing">swing</enumerationValue>
+                <enumerationValue key="linear">linear</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="hideEasing" type="enumeration" defaultValue="swing">
+            <caption>Hide Easing</caption>
+            <category>Behaviour</category>
+            <description>Search method used for showing suggestions</description>
+            <enumerationValues>
+                <enumerationValue key="swing">swing</enumerationValue>
+                <enumerationValue key="linear">linear</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="showMethod" type="enumeration" defaultValue="fadeIn">
+            <caption>Show Method</caption>
+            <category>Behaviour</category>
+            <description>Search method used for showing suggestions</description>
+            <enumerationValues>
+                <enumerationValue key="fadeIn">fadeIn</enumerationValue>
+                <enumerationValue key="fadeOut">fadeOut</enumerationValue>
+                <enumerationValue key="slideDown">slideDown</enumerationValue>
+                <enumerationValue key="slideUp">slideUp</enumerationValue>
+                <enumerationValue key="show">show</enumerationValue>
+                <enumerationValue key="hide">hide</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="hideMethod" type="enumeration" defaultValue="fadeOut">
+            <caption>Hide Method</caption>
+            <category>Behaviour</category>
+            <description>Search method used for showing suggestions</description>
+            <enumerationValues>
+                <enumerationValue key="fadeIn">fadeIn</enumerationValue>
+                <enumerationValue key="fadeOut">fadeOut</enumerationValue>
+                <enumerationValue key="slideDown">slideDown</enumerationValue>
+                <enumerationValue key="slideUp">slideUp</enumerationValue>
+                <enumerationValue key="show">show</enumerationValue>
+                <enumerationValue key="hide">hide</enumerationValue>
+            </enumerationValues>
+        </property>
+        <property key="onClickMicroflow" type="microflow" required="false" entityProperty="notificationEntity">
+            <caption>On Click</caption>
+            <category>Events</category>
+            <description>Microflow that will be run when a notification is clicked</description>
+            <returnType type="Void"/>
+        </property>
+    </properties>
+</widget>
