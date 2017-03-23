@@ -3,7 +3,7 @@
     <name>toastrForMendix</name>
     <description>The description of this widget.</description>
 
-    <icon />
+    <icon>iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABKVBMVEUAAADAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSvAOSu2cF0PAAAAYnRSTlMAAQIDBAUGBwgJCgsODxAREhMVGhweIyYnKCkqLTAxNjc4PD0+P0NERkdKTU9QUlRVVllcXWJjZmh4f4OFjJGUl5ieoKirr7Cyt7m6wMHFx8jKzM/X2ebo6evt7/H19/n7/RXai8AAAAESSURBVBgZvcH5I8JgAAbgd22h0lju+76vMLeUEHKWWJRa7///R/g2qaavfux50DmhpbNHq5x/ia31QWI8zbrsrAKv0B29MhE0GizyP3sadf0lSgzjj/JGmbyGqhnK7QFBOJKUywGxVQgWW/DhiAcAimxBhUnOA/eU+wJOyO8ubFLuFHgmGYVWoJSOAIU0MEEZEzikUASwzmbnQLBMwYIw+kmvShRQHuhIwjFJj3gYUC7pmoMjxRr7ZiMIwJ+i612BsEOysu/z9xrhbrgWC3SVDAhjJC901KgLr/xVHoFjObHih0PTevShrWSJVVkdXuquxUZTaDawHc982Pmnawo5H1ozbkleKWgjcmzRRHsBFZ3wAzFluRrNf59FAAAAAElFTkSuQmCC</icon>
 
     <properties>
         <property key="notificationEntity" type="entity" allowNonPersistableEntities="true" required="true">
@@ -223,6 +223,37 @@
             <category>Events</category>
             <description>Microflow that will be run when a notification is clicked</description>
             <returnType type="Void"/>
+        </property>
+        <property key="onCloseClickMicroflow" type="microflow" required="false" entityProperty="notificationEntity">
+            <caption>On Close Click</caption>
+            <category>Events</category>
+            <description>Microflow that will be run when a notification's close button is clicked</description>
+            <returnType type="Void"/>
+        </property>
+        <property key="toastClass" type="string" required="false">
+            <caption>Toast Class</caption>
+            <category>Display</category>
+            <description>The class to apply to the notification, e.g. alert</description>
+        </property>
+        <property key="errorIconClass" type="string" required="false">
+            <caption>Error Icon Class</caption>
+            <category>Display</category>
+            <description>The class to apply to the notification's error icon, e.g. alert-danger</description>
+        </property>
+        <property key="infoIconClass" type="string" required="false">
+            <caption>Info Icon Class</caption>
+            <category>Display</category>
+            <description>The class to apply to the notification's info icon, e.g. alert-info</description>
+        </property>
+        <property key="successIconClass" type="string" required="false">
+            <caption>Success Icon Class</caption>
+            <category>Display</category>
+            <description>The class to apply to the notification's success icon, e.g. alert-success</description>
+        </property>
+        <property key="warningIconClass" type="string" required="false">
+            <caption>Warning Icon Class</caption>
+            <category>Display</category>
+            <description>The class to apply to the notification's warning icon, e.g. alert-warning</description>
         </property>
     </properties>
 </widget>

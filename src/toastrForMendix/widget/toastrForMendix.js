@@ -35,13 +35,14 @@ define([
         },
 
         postCreate: function () {
-            logger.debug(this.id + ".postCreate");
+            logger.debug(this.id + ".postCreate");         
         },
 
         update: function (obj, callback) {
             logger.debug(this.id + ".update");
 
             this._contextObj = obj;
+            this._resetSubscriptions();
             this._updateRendering(callback);
         },
 
@@ -89,11 +90,47 @@ define([
             options.showMethod = this.showMethod;
             options.hideMethod = this.hideMethod;
 
+            if(this.toastClass){
+                options.toastClass = this.toastClass;
+            }
+            if(this.errorIconClass || this.infoIconClass || this.successIconClass || this.warningIconClass){
+                options.iconClasses = {};            
+                if(this.errorIconClass){
+                    options.iconClasses.error = this.errorIconClass;
+                }
+
+                if(this.infoIconClass){
+                    options.iconClasses.info = this.infoIconClass;
+                }
+
+                if(this.successIconClass){
+                    options.iconClasses.success = this.successIconClass;
+                }
+
+                if(this.warningIconClass){
+                    options.iconClasses.warning = this.warningIconClass;
+                }
+            }
+
+            // TODO...
+            //options.debug
+            //options.preventDuplicates
+            //options.newestOnTop
+            //options.onHidden
+            //options.onShown
+
             if(this.onClickMicroflow){
                 options.onclick = function () {
                         self._execMf(obj.getGuid(), self.onClickMicroflow);
                 };
             }
+
+            if(this.onCloseClickMicroflow){
+                options.onCloseClick = function () {
+                        self._execMf(obj.getGuid(), self.onCloseClickMicroflow);
+                };
+            }
+            
             return options;
         },
 
@@ -127,7 +164,31 @@ define([
                 }, this);
             }
 
-        }
+        },
+
+        // Reset subscriptions.
+        _resetSubscriptions: function() {
+            logger.debug(this.id + "._resetSubscriptions");
+            // Release handles on previous object, if any.
+            if (this._handles) {
+                dojoArray.forEach(this._handles, function (handle) {
+                    mx.data.unsubscribe(handle);
+                });
+                this._handles = [];
+            }
+
+            // When a mendix object exists create subscriptions.
+            if (this._contextObj) {
+                var objectHandle = this.subscribe({
+                    guid: this._contextObj.getGuid(),
+                    callback: dojoLang.hitch(this, function(guid) {
+                        this._updateRendering();
+                    })
+                });
+
+                this._handles = [ objectHandle ];
+            }
+        },
     });
 });
 

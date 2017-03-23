@@ -313,7 +313,9 @@ define([], function () {
                         if (options.onclick) {
                             $toastElement.click(function (event) {
                                 options.onclick(event);
-                                hideToast();
+                                if(options.tapToDismiss){
+                                    hideToast();
+                                }
                             });
                         }
                     }
