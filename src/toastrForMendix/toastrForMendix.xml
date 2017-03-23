@@ -218,6 +218,21 @@
                 <enumerationValue key="hide">hide</enumerationValue>
             </enumerationValues>
         </property>
+        <property key="preventDuplicates" type="boolean" required="true" defaultValue="false">
+            <caption>Prevent Duplicates</caption>
+            <category>Behaviour</category>
+            <description>Whether duplicate notifications should be shown.</description>
+        </property>
+        <property key="newestOnTop" type="boolean" required="true" defaultValue="true">
+            <caption>Newest On Top</caption>
+            <category>Behaviour</category>
+            <description>Whether a new notification should be shown above the previous.</description>
+        </property>
+        <property key="debug" type="boolean" required="true" defaultValue="false">
+            <caption>Debug</caption>
+            <category>Behaviour</category>
+            <description>Whether to write the notification object to the console.</description>
+        </property>
         <property key="onClickMicroflow" type="microflow" required="false" entityProperty="notificationEntity">
             <caption>On Click</caption>
             <category>Events</category>
@@ -228,6 +243,18 @@
             <caption>On Close Click</caption>
             <category>Events</category>
             <description>Microflow that will be run when a notification's close button is clicked</description>
+            <returnType type="Void"/>
+        </property>
+        <property key="onHiddenMicroflow" type="microflow" required="false" entityProperty="notificationEntity">
+            <caption>On Hidden</caption>
+            <category>Events</category>
+            <description>Microflow that will be run when a notification closes.</description>
+            <returnType type="Void"/>
+        </property>
+        <property key="onShownMicroflow" type="microflow" required="false" entityProperty="notificationEntity">
+            <caption>On Shown</caption>
+            <category>Events</category>
+            <description>Microflow that will be run when a notification opens.</description>
             <returnType type="Void"/>
         </property>
         <property key="toastClass" type="string" required="false">

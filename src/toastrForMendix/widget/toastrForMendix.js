@@ -89,6 +89,9 @@ define([
             options.hideEasing = this.hideEasing;
             options.showMethod = this.showMethod;
             options.hideMethod = this.hideMethod;
+            options.debug = this.debug;
+            options.preventDuplicates = this.preventDuplicates;
+            options.newestOnTop = this.newestOnTop;
 
             if(this.toastClass){
                 options.toastClass = this.toastClass;
@@ -112,13 +115,6 @@ define([
                 }
             }
 
-            // TODO...
-            //options.debug
-            //options.preventDuplicates
-            //options.newestOnTop
-            //options.onHidden
-            //options.onShown
-
             if(this.onClickMicroflow){
                 options.onclick = function () {
                         self._execMf(obj.getGuid(), self.onClickMicroflow);
@@ -128,6 +124,18 @@ define([
             if(this.onCloseClickMicroflow){
                 options.onCloseClick = function () {
                         self._execMf(obj.getGuid(), self.onCloseClickMicroflow);
+                };
+            }
+
+            if(this.onHiddenMicroflow){
+                options.onHidden = function () {
+                        self._execMf(obj.getGuid(), self.onHiddenMicroflow);
+                };
+            }
+
+            if(this.onShownMicroflow){
+                options.onShown = function () {
+                        self._execMf(obj.getGuid(), self.onShownMicroflow);
                 };
             }
             
