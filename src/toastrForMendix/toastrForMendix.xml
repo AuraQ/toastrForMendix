@@ -198,11 +198,8 @@
             <description>Search method used for showing suggestions</description>
             <enumerationValues>
                 <enumerationValue key="fadeIn">fadeIn</enumerationValue>
-                <enumerationValue key="fadeOut">fadeOut</enumerationValue>
                 <enumerationValue key="slideDown">slideDown</enumerationValue>
-                <enumerationValue key="slideUp">slideUp</enumerationValue>
                 <enumerationValue key="show">show</enumerationValue>
-                <enumerationValue key="hide">hide</enumerationValue>
             </enumerationValues>
         </property>
         <property key="hideMethod" type="enumeration" defaultValue="fadeOut">
@@ -210,11 +207,8 @@
             <category>Behaviour</category>
             <description>Search method used for showing suggestions</description>
             <enumerationValues>
-                <enumerationValue key="fadeIn">fadeIn</enumerationValue>
                 <enumerationValue key="fadeOut">fadeOut</enumerationValue>
-                <enumerationValue key="slideDown">slideDown</enumerationValue>
                 <enumerationValue key="slideUp">slideUp</enumerationValue>
-                <enumerationValue key="show">show</enumerationValue>
                 <enumerationValue key="hide">hide</enumerationValue>
             </enumerationValues>
         </property>
