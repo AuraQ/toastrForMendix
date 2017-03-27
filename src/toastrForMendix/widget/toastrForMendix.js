@@ -1,3 +1,20 @@
+/*global logger*/
+/*
+    toastrForMendix
+    ========================
+
+    @file      : toastrForMendix.js
+    @version   : 1.0.0
+    @author    : Iain Lindsay
+    @date      : 2017-03-27
+    @copyright : AuraQ Limited 2017
+    @license   : Apache V2
+
+    Documentation
+    ========================
+    Notification widget built using toastr (http://www.toastrjs.com).
+*/
+
 define([
     "dojo/_base/declare",
     "mxui/widget/_WidgetBase",
