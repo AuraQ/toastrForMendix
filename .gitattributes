@@ -15,3 +15,6 @@
 *.PDF	 diff=astextplain
 *.rtf	 diff=astextplain
 *.RTF	 diff=astextplain
+
+# ignore css files so the project gets correctly picked up as js
+test/theme/* linguist-vendored
