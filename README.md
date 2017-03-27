@@ -13,7 +13,7 @@ When you want to display non-blocking notifications to the user, sourced from a 
 # Features
 
 - Display notifications for 4 types: success, info, warning, error
-- Hide notifications based on a configurable timeout (with or without a progres bar), when the user clicks the notification or when the user clicks the close button.
+- Hide notifications based on a configurable timeout (with or without a progress bar), when the user clicks the notification or when the user clicks the close button.
 - Control whether notifications are displayed with a Boolean attribute in your context entity
 - Call a microflow on any of the 4 available events: On Click, On Close Click, On Hidden and On Shown
 - Define custom classes for use on the notifications
