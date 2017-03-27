@@ -1,0 +1,34 @@
+/* Example using font awesome for notification icons instead of the default icons, from https://johnpapa.net/fontawesome-icons-with-toastr/*/
+#toast-container {
+    > .fa-toast {
+        background-image: none !important;
+
+        &:before {
+            position: fixed;
+            font-family: FontAwesome;
+            font-size: 24px;
+            line-height: 18px;
+            float: left;
+            margin-left: -1em;
+            color: #FFF;
+            padding-right: 0.5em;
+            margin: auto 0.5em auto -1.5em;
+        }
+    }
+
+    > .fa-toast-warning:before {
+        content: "\f0e7";
+    }
+
+    > .fa-toast-error:before {
+        content: "\f119";
+    }
+
+    > .fa-toast-info:before {
+        content: "\f0eb";
+    }
+
+    > .fa-toast-success:before {
+        content: "\f046";
+    }   
+}
