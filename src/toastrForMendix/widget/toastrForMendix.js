@@ -75,19 +75,20 @@ define([
             logger.debug(this.id + "._updateRendering");
             var self = this;
 
-            if( this._contextObj.get(this.loadNotificationsAttribute)){
+            if( this._contextObj && this._contextObj.get(this.loadNotificationsAttribute)){
                 this._execMf(this._contextObj.getGuid(), this.loadMicroflow, function(objs){
-                        
-                        for( var i = 0; i < objs.length; i++){                        
-                            self._createNotification(objs[i]);
+                        if (objs) {
+                            for( var i = 0; i < objs.length; i++){                        
+                                self._createNotification(objs[i]);
+                            }
                         }
 
-                        mendix.lang.nullExec(callback);
+                        if (callback) callback();
                     });
 
             }
             else{
-                mendix.lang.nullExec(callback);
+                if (callback) callback();
             }
         },
 
@@ -194,13 +195,9 @@ define([
         // Reset subscriptions.
         _resetSubscriptions: function() {
             logger.debug(this.id + "._resetSubscriptions");
+
             // Release handles on previous object, if any.
-            if (this._handles) {
-                dojoArray.forEach(this._handles, function (handle) {
-                    mx.data.unsubscribe(handle);
-                });
-                this._handles = [];
-            }
+            this.unsubscribeAll();
 
             // When a mendix object exists create subscriptions.
             if (this._contextObj) {
@@ -211,7 +208,6 @@ define([
                     })
                 });
 
-                this._handles = [ objectHandle ];
             }
         },
     });
