@@ -4,10 +4,10 @@
     ========================
 
     @file      : toastrForMendix.js
-    @version   : 1.0.0
+    @version   : 1.1.0
     @author    : Iain Lindsay
-    @date      : 2017-03-27
-    @copyright : AuraQ Limited 2017
+    @date      : 2018-09-11
+    @copyright : AuraQ Limited 2018
     @license   : Apache V2
 
     Documentation
@@ -83,12 +83,12 @@ define([
                             }
                         }
 
-                        if (callback) callback();
+                        self._executeCallback(callback, "_updateRendering");
                     });
 
             }
             else{
-                if (callback) callback();
+                this._executeCallback(callback, "_updateRendering");
             }
         },
 
@@ -162,7 +162,7 @@ define([
 
         _createNotification: function(obj){
             var options = this._getOptionsForObject(obj);
-            var type = this.typeAttribute ? obj.get(this.typeAttribute) : this.typeDefault;
+            var type = this.typeAttribute ? obj.get(this.typeAttribute).toLowerCase() : this.typeDefault;
             var title = obj.get(this.titleAttribute);
             var message = obj.get(this.messageAttribute);
 
@@ -210,6 +210,14 @@ define([
 
             }
         },
+
+        // Shorthand for executing a callback, adds logging to your inspector
+        _executeCallback: function (cb, from) {
+            logger.debug(this.id + "._executeCallback" + (from ? " from " + from : ""));
+            if (cb && typeof cb === "function") {
+                cb();
+            }
+        }
     });
 });
 
