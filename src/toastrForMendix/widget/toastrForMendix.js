@@ -102,7 +102,7 @@ define([
             options.showDuration = this.showDurationAttribute ? obj.get(this.showDurationAttribute) : this.showDurationDefault;
             options.hideDuration = this.hideDurationAttribute ? obj.get(this.hideDurationAttribute) : this.hideDurationDefault;
             options.timeOut = this.timeoutAttribute ? obj.get(this.timeoutAttribute) : this.timeoutDefault;
-            options.extendedTimeOut = this.extendedTimeoutAttribute ? obj.get(this.extendedTimeoutAttribute) : this.extendedTimeouDefault;
+            options.extendedTimeOut = this.extendedTimeoutAttribute ? obj.get(this.extendedTimeoutAttribute) : this.extendedTimeoutDefault;
             options.showEasing = this.showEasing;
             options.hideEasing = this.hideEasing;
             options.showMethod = this.showMethod;
