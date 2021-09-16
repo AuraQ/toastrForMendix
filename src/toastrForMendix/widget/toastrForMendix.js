@@ -70,12 +70,7 @@ define([
 
         uninitialize: function () {
             logger.debug(this.id + ".uninitialize");
-
-            for (var i = 0; i < this._exists.length; i++) {                        
-                toastr.clear(this._exists[i].notification);
-            }
-            
-            this._exists = [];
+            this._removeAll();
         },
 
         _updateRendering: function (callback) {
@@ -113,6 +108,8 @@ define([
                             }
                         }
                     });
+            } else {
+                this._removeAll();
             }
 
             self._executeCallback(callback, "_updateRendering");
@@ -224,6 +221,13 @@ define([
             this._exists = dojoArray.filter(this._exists, function(item) {
                 return item.objGuid !== objGuid;
             })
+        },
+
+        _removeAll: function() {
+            for (var i = 0; i < this._exists.length; i++) {                        
+                toastr.clear(this._exists[i].notification);
+            }
+            this._exists = [];
         },
 
         _execMf: function (guid, mf, cb) {
