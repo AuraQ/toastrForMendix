@@ -41,6 +41,7 @@ define([
         // Internal variables.
         _handles: null,
         _contextObj: null,
+        _exists: [],
 
         constructor: function () { 
             this._handles = [];
@@ -63,28 +64,50 @@ define([
         },
 
         uninitialize: function () {
-          mx.logger.debug(this.id + ".uninitialize");
+            mx.logger.debug(this.id + ".uninitialize");
+            this._removeAll();
         },
 
         _updateRendering: function (callback) {
             mx.logger.debug(this.id + "._updateRendering");
             var self = this;
 
-            if( this._contextObj && this._contextObj.get(this.loadNotificationsAttribute)){
-                this._execMf(this._contextObj.getGuid(), this.loadMicroflow, function(objs){
-                        if (objs) {
-                            for( var i = 0; i < objs.length; i++){                        
-                                self._createNotification(objs[i]);
+            if (this._contextObj && this._contextObj.get(this.loadNotificationsAttribute)) {
+                this._execMf(this._contextObj.getGuid(), this.loadMicroflow, function(toAdd) {
+                        var toRemove = self._exists;
+
+                        if (toAdd) {
+                            for (var i = 0; i < toAdd.length; i++) {                        
+                                var exists = self._findExists(toAdd[i].getGuid());
+
+                                if (!exists) {
+                                    var notification = self._createNotification(toAdd[i]);
+                                    if (notification) {
+                                        self._addExists(toAdd[i].getGuid(), notification)
+                                    }
+                                } else {
+                                    toastr.clear(exists.notification);
+                                    exists.notification = self._createNotification(toAdd[i]);
+                                }
+
+                                toRemove = dojoArray.filter(toRemove, function(item) {
+                                    return item.objGuid !== toAdd[i].getGuid()
+                                });
                             }
                         }
 
-                        self._executeCallback(callback, "_updateRendering");
+                        if (toRemove) {
+                            for (var i = 0; i < toRemove.length; i++) {                        
+                                toastr.clear(toRemove[i].notification);
+                                self._removeExists(toRemove[i].objGuid);
+                            }
+                        }
                     });
+            } else {
+                this._removeAll();
+            }
 
-            }
-            else{
-                this._executeCallback(callback, "_updateRendering");
-            }
+            self._executeCallback(callback, "_updateRendering");
         },
 
         _getOptionsForObject : function(obj){
@@ -94,10 +117,10 @@ define([
             options.progressBar = this.showProgressAttribute ? obj.get(this.showProgressAttribute) : this.showProgressDefault;
             options.tapToDismiss = this.tapToDismissAttribute ? obj.get(this.tapToDismissAttribute) : this.tapToDismissDefault;
             options.positionClass = this.positionClassAttribute ? obj.get(this.positionClassAttribute) : this.positionClassDefault.split('_').join('-');
-            options.showDuration = this.showDurationAttribute ? obj.get(this.showDurationAttribute) : this.showDurationDefault;
-            options.hideDuration = this.hideDurationAttribute ? obj.get(this.hideDurationAttribute) : this.hideDurationDefault;
-            options.timeOut = this.timeoutAttribute ? obj.get(this.timeoutAttribute) : this.timeoutDefault;
-            options.extendedTimeOut = this.extendedTimeoutAttribute ? obj.get(this.extendedTimeoutAttribute) : this.extendedTimeouDefault;
+            options.showDuration = Number(this.showDurationAttribute ? obj.get(this.showDurationAttribute) : this.showDurationDefault);
+            options.hideDuration = Number(this.hideDurationAttribute ? obj.get(this.hideDurationAttribute) : this.hideDurationDefault);
+            options.timeOut = Number(this.timeoutAttribute ? obj.get(this.timeoutAttribute) : this.timeoutDefault);
+            options.extendedTimeOut = Number(this.extendedTimeoutAttribute ? obj.get(this.extendedTimeoutAttribute) : this.extendedTimeoutDefault);
             options.showEasing = this.showEasing;
             options.hideEasing = this.hideEasing;
             options.showMethod = this.showMethod;
@@ -136,15 +159,29 @@ define([
 
             if(this.onCloseClickMicroflow){
                 options.onCloseClick = function () {
+                        self._removeExists(obj.getGuid());
                         self._execMf(obj.getGuid(), self.onCloseClickMicroflow);
                 };
             }
+            else{
+                options.onCloseClick = function () {
+                        self._removeExists(obj.getGuid());
+                };
+            }
+
 
             if(this.onHiddenMicroflow){
                 options.onHidden = function () {
+                        self._removeExists(obj.getGuid());
                         self._execMf(obj.getGuid(), self.onHiddenMicroflow);
                 };
             }
+            else{
+                options.onHidden = function () {
+                        self._removeExists(obj.getGuid());
+                };
+            }
+
 
             if(this.onShownMicroflow){
                 options.onShown = function () {
@@ -160,11 +197,33 @@ define([
             var type = this.typeAttribute ? obj.get(this.typeAttribute).toLowerCase() : this.typeDefault;
             var title = obj.get(this.titleAttribute);
             var message = obj.get(this.messageAttribute);
-
+            
             toastr.options = options;
-
-            toastr[type](message, title);
+            return toastr[type](message, title);
         },        
+
+        _findExists: function(objGuid) {
+            return dojoArray.filter(this._exists, function(item) {
+                return item.objGuid === objGuid;
+            })[0]
+        },
+
+        _addExists: function(objGuid, notification) {
+            this._exists.push({ objGuid, notification });
+        },
+
+        _removeExists: function(objGuid) {
+            this._exists = dojoArray.filter(this._exists, function(item) {
+                return item.objGuid !== objGuid;
+            })
+        },
+
+        _removeAll: function() {
+            for (var i = 0; i < this._exists.length; i++) {                        
+                toastr.clear(this._exists[i].notification);
+            }
+            this._exists = [];
+        },
 
         _execMf: function (guid, mf, cb) {
             if (guid && mf) {
