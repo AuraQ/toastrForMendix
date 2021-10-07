@@ -1,13 +1,12 @@
-/*global logger*/
 /*
     toastrForMendix
     ========================
 
     @file      : toastrForMendix.js
-    @version   : 1.1.0
+    @version   : 2.0.0
     @author    : Iain Lindsay
-    @date      : 2018-09-11
-    @copyright : AuraQ Limited 2018
+    @date      : 2021-10-07
+    @copyright : AuraQ Limited 2021
     @license   : Apache V2
 
     Documentation
@@ -18,7 +17,6 @@
 define([
     "dojo/_base/declare",
     "mxui/widget/_WidgetBase",
-
     "mxui/dom",
     "dojo/dom",
     "dojo/dom-prop",
@@ -31,14 +29,11 @@ define([
     "dojo/text",
     "dojo/html",
     "dojo/_base/event",
-    "toastrForMendix/lib/jquery-1.11.2",
-    "toastrForMendix/lib/toastr",
-
-], function (declare, _WidgetBase, dom, dojoDom, dojoProp, dojoGeometry, dojoClass, dojoStyle, dojoConstruct, dojoArray, dojoLang, dojoText, dojoHtml, dojoEvent, _jQuery, _toastr) {
+    "jquery",
+    "toastr",
+    "./ui/toastrForMendix.css"
+], function (declare, _WidgetBase, dom, dojoDom, dojoProp, dojoGeometry, dojoClass, dojoStyle, dojoConstruct, dojoArray, dojoLang, dojoText, dojoHtml, dojoEvent, $, toastr) {
     "use strict";
-
-    var $ = _jQuery.noConflict(true); 
-    $ = _toastr.createInstance($);
 
     return declare("toastrForMendix.widget.toastrForMendix", [ _WidgetBase ], {
 
@@ -52,11 +47,11 @@ define([
         },
 
         postCreate: function () {
-            logger.debug(this.id + ".postCreate");         
+            mx.logger.debug(this.id + ".postCreate");         
         },
 
         update: function (obj, callback) {
-            logger.debug(this.id + ".update");
+            mx.logger.debug(this.id + ".update");
 
             this._contextObj = obj;
             this._resetSubscriptions();
@@ -64,15 +59,15 @@ define([
         },
 
         resize: function (box) {
-          logger.debug(this.id + ".resize");
+          mx.logger.debug(this.id + ".resize");
         },
 
         uninitialize: function () {
-          logger.debug(this.id + ".uninitialize");
+          mx.logger.debug(this.id + ".uninitialize");
         },
 
         _updateRendering: function (callback) {
-            logger.debug(this.id + "._updateRendering");
+            mx.logger.debug(this.id + "._updateRendering");
             var self = this;
 
             if( this._contextObj && this._contextObj.get(this.loadNotificationsAttribute)){
@@ -185,7 +180,7 @@ define([
                         }
                     },
                     error: function (e) {
-                        logger.error('Error running Microflow: ' + e);
+                        mx.logger.error('Error running Microflow: ' + e);
                     }
                 }, this);
             }
@@ -194,7 +189,7 @@ define([
 
         // Reset subscriptions.
         _resetSubscriptions: function() {
-            logger.debug(this.id + "._resetSubscriptions");
+            mx.logger.debug(this.id + "._resetSubscriptions");
 
             // Release handles on previous object, if any.
             this.unsubscribeAll();
@@ -213,12 +208,10 @@ define([
 
         // Shorthand for executing a callback, adds logging to your inspector
         _executeCallback: function (cb, from) {
-            logger.debug(this.id + "._executeCallback" + (from ? " from " + from : ""));
+            mx.logger.debug(this.id + "._executeCallback" + (from ? " from " + from : ""));
             if (cb && typeof cb === "function") {
                 cb();
             }
         }
     });
 });
-
-require(["toastrForMendix/widget/toastrForMendix"]);
