@@ -3,9 +3,9 @@
     ========================
 
     @file      : toastrForMendix.js
-    @version   : 1.0.0
+    @version   : 1.1.0
     @author    : Iain Lindsay
-    @date      : 2021-10-07
+    @date      : 2023-07-12
     @copyright : AuraQ Limited 2021
     @license   : Apache V2
 
@@ -48,11 +48,11 @@ define([
         },
 
         postCreate: function () {
-            mx.logger.debug(this.id + ".postCreate");         
+            console.debug(this.id + ".postCreate");         
         },
 
         update: function (obj, callback) {
-            mx.logger.debug(this.id + ".update");
+            console.debug(this.id + ".update");
 
             this._contextObj = obj;
             this._resetSubscriptions();
@@ -60,16 +60,16 @@ define([
         },
 
         resize: function (box) {
-          mx.logger.debug(this.id + ".resize");
+          console.debug(this.id + ".resize");
         },
 
         uninitialize: function () {
-            mx.logger.debug(this.id + ".uninitialize");
+            console.debug(this.id + ".uninitialize");
             this._removeAll();
         },
 
         _updateRendering: function (callback) {
-            mx.logger.debug(this.id + "._updateRendering");
+            console.debug(this.id + "._updateRendering");
             var self = this;
 
             if (this._contextObj && this._contextObj.get(this.loadNotificationsAttribute)) {
@@ -239,7 +239,7 @@ define([
                         }
                     },
                     error: function (e) {
-                        mx.logger.error('Error running Microflow: ' + e);
+                        console.error('Error running Microflow: ' + e);
                     }
                 }, this);
             }
@@ -248,7 +248,7 @@ define([
 
         // Reset subscriptions.
         _resetSubscriptions: function() {
-            mx.logger.debug(this.id + "._resetSubscriptions");
+            console.debug(this.id + "._resetSubscriptions");
 
             // Release handles on previous object, if any.
             this.unsubscribeAll();
@@ -267,7 +267,7 @@ define([
 
         // Shorthand for executing a callback, adds logging to your inspector
         _executeCallback: function (cb, from) {
-            mx.logger.debug(this.id + "._executeCallback" + (from ? " from " + from : ""));
+            console.debug(this.id + "._executeCallback" + (from ? " from " + from : ""));
             if (cb && typeof cb === "function") {
                 cb();
             }
