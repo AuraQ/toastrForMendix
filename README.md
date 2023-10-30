@@ -1,4 +1,4 @@
-# toastr for Mendix - Version 1
+# toastr for Mendix - Version 1.1
 
 This widget is a wrapper for [toastr](http://www.toastrjs.com) providing simple javascript toast notifications.
 
@@ -22,10 +22,12 @@ When you want to display non-blocking notifications to the user, sourced from a 
 # Configuration
 
 ## Source
+
 - **Notification Entity**: The entity that holds the information for a notification.
 - **Notification Load**: The microflow that will load the notifications.
 
 ## Entity Based Configuration
+
 - **Type**: The string attribute holding the type of notification. Should be 'success', 'info', 'warning' or 'error'.
 - **Title**: The string attribute holding the title of the notification.
 - **Message**: The string attribute holding the notification message.
@@ -39,6 +41,7 @@ When you want to display non-blocking notifications to the user, sourced from a 
 - **Extended Timeout**: The integer attribute holding the length of time, in milliseconds, that the notification will be displayed for after the user stops hovering over it.
 
 ## Default Configuration
+
 - **Close Button**: A boolean, used if no attribute is selected in the corresponding Entity Based Configuration property, that determines if the notification should display a close button.
 - **Progress Bar**: The boolean, used if no attribute is selected in the corresponding Entity Based Configuration property, that determines if the notification should display a progress bar (only applicable when a timeout is defined).
 - **Tap To Dismiss**: The boolean, used if no attribute is selected in the corresponding Entity Based Configuration property, that determines if the notification should close when the user clicks it.
@@ -50,6 +53,7 @@ When you want to display non-blocking notifications to the user, sourced from a 
 - **Extended Timeout**: The integer, used if no attribute is selected in the corresponding Entity Based Configuration property, holding the length of time, in milliseconds, that the notification will be displayed for after the user stops hovering over it.
 
 ## Behaviour
+
 - **Load Notifications:** The boolean attribute in the context entity that determines if the notifications should be loaded.
 - **Show Easing:** The Easing that should be used when the notification is shown.
 - **Hide Easing:** The Easing that should be used when the notification is hidden.
@@ -60,12 +64,14 @@ When you want to display non-blocking notifications to the user, sourced from a 
 - **Debug:** A boolean that indicates whether the notification object should be output to the browser console.
 
 ## Events
+
 - **On Click**: The microflow that will be run when a notification is clicked (microflow should have one input parameter that is the same type as the Notification entity)
 - **On Close Click**: The microflow that will be run when a notification's close button is clicked (microflow should have one input parameter that is the same type as the Notification entity)
 - **On Hidden**: The microflow that will be run when a notification closes (microflow should have one input parameter that is the same type as the Notification entity)
 - **On Shown**: The microflow that will be run when a notification opens (microflow should have one input parameter that is the same type as the Notification entity)
 
 ## Display
+
 - **Toast Class**: The custom class to apply to the notification, e.g. alert
 - **Error Icon Class**: The custom class to apply to the notification's error icon, e.g. alert-danger
 - **Info Icon Class**: The custom class to apply to the notification's error icon, e.g. alert-info
